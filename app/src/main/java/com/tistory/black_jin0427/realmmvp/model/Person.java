@@ -14,7 +14,7 @@ public class Person extends RealmObject {
     /**
      *  PrimaryKey -> 기본키, 암묵적 @Index 포함
      *  Required -> non null
-     *  Index -> 색인 기능)
+     *  Index -> 색인 기능
      */
 
     @PrimaryKey

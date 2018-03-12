@@ -26,7 +26,7 @@ public class PersonPresenterImpl implements PersonPresenter {
 
     public PersonPresenterImpl(Activity activity, Realm realm) {
         mActivity = activity;
-        mRealm = realm;
+        mRealm = Realm.getDefaultInstance();
     }
 
     @Override
@@ -86,7 +86,7 @@ public class PersonPresenterImpl implements PersonPresenter {
             public void execute(Realm realm) {
                 // Add a person
                 Number maxId = realm.where(Person.class).max("id");
-                Log.d("MyTag","maxId : " + maxId);
+                Dlog.d("maxId : " + maxId);
 
                 int nextId = maxId == null ? 1 : maxId.intValue() + 1;
 

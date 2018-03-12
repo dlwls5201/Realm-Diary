@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.widget.Toast;
 
 import com.tistory.black_jin0427.realmmvp.model.Diary;
+import com.tistory.black_jin0427.realmmvp.view.diary.detail.DetailActivity;
 import com.tistory.black_jin0427.realmmvp.view.diary.write.DiaryWriteActivity;
 
 import io.realm.Realm;
@@ -24,7 +26,7 @@ public class DiaryListPresenterImpl implements DiaryListPresenter{
 
     public DiaryListPresenterImpl(Activity activity, Realm realm) {
         mActivity = activity;
-        mRealm = realm;
+        mRealm = Realm.getDefaultInstance();
     }
 
     @Override
@@ -33,9 +35,14 @@ public class DiaryListPresenterImpl implements DiaryListPresenter{
     }
 
     @Override
-    public void onItemClick(Diary diary) {
-        String text = "날짜 : " + diary.getDate() + "  제목 : " + diary.getTitle() + "   내용 : " + diary.getContent() + "   테그 : " + diary.getTitle();
-        Toast.makeText(mActivity, text, Toast.LENGTH_LONG).show();
+    public void onItemClick(Diary diary, int position) {
+        //String text = "날짜 : " + diary.getDate() + "  제목 : " + diary.getTitle() + "   내용 : " + diary.getContent() + "   테그 : " + diary.getTitle();
+        //Toast.makeText(mActivity, text, Toast.LENGTH_LONG).show();
+
+        Intent intent = new Intent(mActivity, DetailActivity.class);
+        intent.putExtra("personId", diary.getPersonId());
+        intent.putExtra("position", position);
+        mActivity.startActivity(intent);
     }
 
     @Override

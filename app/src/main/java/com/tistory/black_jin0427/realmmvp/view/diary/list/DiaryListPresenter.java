@@ -12,7 +12,7 @@ public interface DiaryListPresenter {
 
     void setView(DiaryListPresenter.View view);
 
-    void onItemClick(Diary diary);
+    void onItemClick(Diary diary, int position);
 
     void onItemLongClick(Diary diary);
 

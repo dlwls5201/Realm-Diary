@@ -19,7 +19,7 @@ public class DiaryWritePresenterImpl implements DiaryWritePresenter {
 
     public DiaryWritePresenterImpl(Activity activity, Realm realm) {
         mActivity = activity;
-        mRealm = realm;
+        mRealm = Realm.getDefaultInstance();
     }
 
     @Override

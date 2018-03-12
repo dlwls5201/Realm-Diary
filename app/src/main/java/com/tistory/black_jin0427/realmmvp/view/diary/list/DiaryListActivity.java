@@ -95,7 +95,7 @@ public class DiaryListActivity extends AppCompatActivity implements DiaryListPre
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Diary diary = (Diary) parent.getAdapter().getItem(position);
-                diaryListPresenter.onItemClick(diary);
+                diaryListPresenter.onItemClick(diary, position);
 
             }
         });
@@ -128,7 +128,9 @@ public class DiaryListActivity extends AppCompatActivity implements DiaryListPre
         if(tagDiaries.size() > 0) {
             adapter.setDiaryTag(tagDiaries);
         } else {
-            Toast.makeText(getApplicationContext(), "해당 색인이 없습니다.", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), "해당 색인이 없습니다.", Toast.LENGTH_LONG).show();
+
+            adapter.setDiaryTag(diaries);
         }
 
         editTag.setText(null);
