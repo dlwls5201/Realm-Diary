@@ -16,13 +16,13 @@ public class Person extends RealmObject {
      *  Required -> non null
      *  Index -> 색인 기능
      */
-
     @PrimaryKey
     private int id;
 
     @Required
     private String name;
     private String gender;
+    private String job; // migration 예제 데이터
     private int age;
 
     private RealmList<Diary> diaries;
@@ -49,6 +49,14 @@ public class Person extends RealmObject {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public String getJob() {
+        return job;
+    }
+
+    public void setJob(String gender) {
+        this.job = job;
     }
 
     public int getAge() {

@@ -5,8 +5,17 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 
+import com.tistory.black_jin0427.realmmvp.model.Person;
+
+import java.util.jar.Attributes;
+
+import io.realm.DynamicRealm;
+import io.realm.FieldAttribute;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.RealmMigration;
+import io.realm.RealmObjectSchema;
+import io.realm.RealmSchema;
 
 /**
  * Created by ifamily on 2018-01-15.
@@ -21,10 +30,35 @@ public class MyApplication extends Application {
         // Initialize Realm. Should only be done once when the application starts.
         Realm.init(this);
 
-        //migration -> http://developer88.tistory.com/77?category=220430
         RealmConfiguration config = new RealmConfiguration.Builder()
                 .deleteRealmIfMigrationNeeded()
-                //.schemaVersion(1)
+                .schemaVersion(3)
+                .migration(new RealmMigration() {
+                    @Override
+                    public void migrate(DynamicRealm realm, long oldVersion, long newVersion) {
+
+                        RealmSchema schema = realm.getSchema();
+
+                        if(oldVersion == 1) {
+
+                            RealmObjectSchema mPersonSchema = schema.get("Person");
+                            mPersonSchema.addField("job", String.class);
+
+                            oldVersion++;
+                        }
+
+                        if(oldVersion == 2) {
+
+                            schema.create("DiaryDetail")
+                                    .addField("date", String.class, FieldAttribute.REQUIRED)
+                                    .addField("title", String.class, FieldAttribute.REQUIRED)
+                                    .addField("description", String.class)
+                                    .addField("number", int.class);
+
+                        }
+
+                    }
+                })
                 .build();
 
         Realm.setDefaultConfiguration(config);
